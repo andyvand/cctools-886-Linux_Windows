@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\</FILEPATH>
+      <FILENAME>corecrt_wstring.h</FILENAME>
+      <LINE>245</LINE>
+      <COLUMN>21</COLUMN>
+    </SFA>
+    <DEFECTCODE>28727</DEFECTCODE>
+    <DESCRIPTION>Banned API Usage:  wcstok is a Banned API as listed in dontuse.h for security purposes.</DESCRIPTION>
+    <FUNCTION>_wcstok</FUNCTION>
+    <DECORATED>_wcstok</DECORATED>
+    <FUNCLINE>240</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

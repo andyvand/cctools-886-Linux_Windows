@@ -1,0 +1,5 @@
+﻿  Building 'makerelocs' with toolset 'WindowsApplicationForDrivers10.0' and the 'Desktop' target platform.
+  Generating code
+  Finished generating code
+  Compiler terminating.  Please wait........... Abort complete.
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppCommon.targets(638,5): error MSB6006: "link.exe" exited with code 4.

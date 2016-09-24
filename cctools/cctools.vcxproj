@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\libmacho\arch.c" />
+    <ClCompile Include="..\libmacho\getsecbyname.c" />
+    <ClCompile Include="..\libmacho\getsegbyname.c" />
+    <ClCompile Include="..\libmacho\get_end.c" />
+    <ClCompile Include="..\libmacho\hppa_swap.c" />
+    <ClCompile Include="..\libmacho\i386_swap.c" />
+    <ClCompile Include="..\libmacho\i860_swap.c" />
+    <ClCompile Include="..\libmacho\m68k_swap.c" />
+    <ClCompile Include="..\libmacho\m88k_swap.c" />
+    <ClCompile Include="..\libmacho\ppc_swap.c" />
+    <ClCompile Include="..\libmacho\slot_name.c" />
+    <ClCompile Include="..\libmacho\sparc_swap.c" />
+    <ClCompile Include="..\libmacho\swap.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\architecture\i386\fpu.h" />
+    <ClInclude Include="..\include\architecture\i386\frame.h" />
+    <ClInclude Include="..\include\architecture\m88k\fp_regs.h" />
+    <ClInclude Include="..\include\architecture\m88k\reg_help.h" />
+    <ClInclude Include="..\include\architecture\nrw\macro_help.h" />
+    <ClInclude Include="..\include\architecture\nrw\reg_help.h" />
+    <ClInclude Include="..\include\architecture\sparc\reg.h" />
+    <ClInclude Include="..\include\cbt\libsyminfo.h" />
+    <ClInclude Include="..\include\coff\aouthdr.h" />
+    <ClInclude Include="..\include\coff\base_relocs.h" />
+    <ClInclude Include="..\include\coff\bytesex.h" />
+    <ClInclude Include="..\include\coff\debug_directory.h" />
+    <ClInclude Include="..\include\coff\filehdr.h" />
+    <ClInclude Include="..\include\coff\ms_dos_stub.h" />
+    <ClInclude Include="..\include\coff\scnhdr.h" />
+    <ClInclude Include="..\include\coff\syment.h" />
+    <ClInclude Include="..\include\elf\dwarf2.h" />
+    <ClInclude Include="..\include\gnu\a.out.h" />
+    <ClInclude Include="..\include\gnu\exec.h" />
+    <ClInclude Include="..\include\gnu\symseg.h" />
+    <ClInclude Include="..\include\i386\eflags.h" />
+    <ClInclude Include="..\include\llvm-c\Disassembler.h" />
+    <ClInclude Include="..\include\mach-o\arch.h" />
+    <ClInclude Include="..\include\mach-o\arm64\reloc.h" />
+    <ClInclude Include="..\include\mach-o\arm\reloc.h" />
+    <ClInclude Include="..\include\mach-o\dyld.h" />
+    <ClInclude Include="..\include\mach-o\dyld_debug.h" />
+    <ClInclude Include="..\include\mach-o\dyld_gdb.h" />
+    <ClInclude Include="..\include\mach-o\dyld_priv.h" />
+    <ClInclude Include="..\include\mach-o\fat.h" />
+    <ClInclude Include="..\include\mach-o\getsect.h" />
+    <ClInclude Include="..\include\mach-o\gmon.h" />
+    <ClInclude Include="..\include\mach-o\hppa\reloc.h" />
+    <ClInclude Include="..\include\mach-o\hppa\swap.h" />
+    <ClInclude Include="..\include\mach-o\i386\swap.h" />
+    <ClInclude Include="..\include\mach-o\i860\reloc.h" />
+    <ClInclude Include="..\include\mach-o\i860\swap.h" />
+    <ClInclude Include="..\include\mach-o\kld.h" />
+    <ClInclude Include="..\include\mach-o\ldsyms.h" />
+    <ClInclude Include="..\include\mach-o\loader.h" />
+    <ClInclude Include="..\include\mach-o\m68k\swap.h" />
+    <ClInclude Include="..\include\mach-o\m88k\reloc.h" />
+    <ClInclude Include="..\include\mach-o\m88k\swap.h" />
+    <ClInclude Include="..\include\mach-o\nlist.h" />
+    <ClInclude Include="..\include\mach-o\ppc\reloc.h" />
+    <ClInclude Include="..\include\mach-o\ppc\swap.h" />
+    <ClInclude Include="..\include\mach-o\ranlib.h" />
+    <ClInclude Include="..\include\mach-o\redo_prebinding.h" />
+    <ClInclude Include="..\include\mach-o\reloc.h" />
+    <ClInclude Include="..\include\mach-o\rld.h" />
+    <ClInclude Include="..\include\mach-o\rld_state.h" />
+    <ClInclude Include="..\include\mach-o\sarld.h" />
+    <ClInclude Include="..\include\mach-o\sparc\reloc.h" />
+    <ClInclude Include="..\include\mach-o\sparc\swap.h" />
+    <ClInclude Include="..\include\mach-o\stab.h" />
+    <ClInclude Include="..\include\mach-o\swap.h" />
+    <ClInclude Include="..\include\mach-o\x86_64\reloc.h" />
+    <ClInclude Include="..\include\mach\arm\thread_state.h" />
+    <ClInclude Include="..\include\mach\arm\thread_status.h" />
+    <ClInclude Include="..\include\mach\arm\_structs.h" />
+    <ClInclude Include="..\include\mach\hppa\thread_status.h" />
+    <ClInclude Include="..\include\mach\i386\fp_reg.h" />
+    <ClInclude Include="..\include\mach\i386\thread_state.h" />
+    <ClInclude Include="..\include\mach\i386\thread_status.h" />
+    <ClInclude Include="..\include\mach\i386\_structs.h" />
+    <ClInclude Include="..\include\mach\i860\thread_status.h" />
+    <ClInclude Include="..\include\mach\m68k\thread_status.h" />
+    <ClInclude Include="..\include\mach\m88k\thread_status.h" />
+    <ClInclude Include="..\include\mach\machine.h" />
+    <ClInclude Include="..\include\mach\ppc\thread_status.h" />
+    <ClInclude Include="..\include\mach\ppc\_structs.h" />
+    <ClInclude Include="..\include\mach\sparc\thread_status.h" />
+    <ClInclude Include="..\include\opcode\arm.h" />
+    <ClInclude Include="..\include\standalone\libsa.h" />
+    <ClInclude Include="..\include\stuff\allocate.h" />
+    <ClInclude Include="..\include\stuff\arch.h" />
+    <ClInclude Include="..\include\stuff\best_arch.h" />
+    <ClInclude Include="..\include\stuff\bool.h" />
+    <ClInclude Include="..\include\stuff\breakout.h" />
+    <ClInclude Include="..\include\stuff\bytesex.h" />
+    <ClInclude Include="..\include\stuff\crc32.h" />
+    <ClInclude Include="..\include\stuff\dylib_roots.h" />
+    <ClInclude Include="..\include\stuff\dylib_table.h" />
+    <ClInclude Include="..\include\stuff\errors.h" />
+    <ClInclude Include="..\include\stuff\execute.h" />
+    <ClInclude Include="..\include\stuff\guess_short_name.h" />
+    <ClInclude Include="..\include\stuff\hash_string.h" />
+    <ClInclude Include="..\include\stuff\hppa.h" />
+    <ClInclude Include="..\include\stuff\llvm.h" />
+    <ClInclude Include="..\include\stuff\lto.h" />
+    <ClInclude Include="..\include\stuff\macosx_deployment_target.h" />
+    <ClInclude Include="..\include\stuff\ofile.h" />
+    <ClInclude Include="..\include\stuff\openstep_mach.h" />
+    <ClInclude Include="..\include\stuff\print.h" />
+    <ClInclude Include="..\include\stuff\reloc.h" />
+    <ClInclude Include="..\include\stuff\rnd.h" />
+    <ClInclude Include="..\include\stuff\seg_addr_table.h" />
+    <ClInclude Include="..\include\stuff\symbol.h" />
+    <ClInclude Include="..\include\stuff\symbol_list.h" />
+    <ClInclude Include="..\include\stuff\SymLoc.h" />
+    <ClInclude Include="..\include\stuff\unix_standard_mode.h" />
+    <ClInclude Include="..\include\stuff\version_number.h" />
+    <ClInclude Include="..\include\stuff\vm_flush_cache.h" />
+    <ClInclude Include="..\include\sys\gmon.h" />
+    <ClInclude Include="..\include\xar\xar.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D9CC5903-32C3-4210-8FF1-7CCBC216EF57}</ProjectGuid>
+    <TemplateGuid>{504102d4-2172-473c-8adf-cd96e308f257}</TemplateGuid>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <Configuration>Debug</Configuration>
+    <Platform Condition="'$(Platform)' == ''">Win32</Platform>
+    <RootNamespace>cctools</RootNamespace>
+    <ProjectName>macho</ProjectName>
+    <WindowsTargetPlatformVersion>$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'" Label="Configuration">
+    <TargetVersion>Windows10</TargetVersion>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>WindowsApplicationForDrivers10.0</PlatformToolset>
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <PreprocessorDefinitions>LTO_SUPPORT;__inline__=inline;__i386__;__LITTLE_ENDIAN__;_X86_=1;i386=1;STD_CALL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalUsingDirectories>
+      </AdditionalUsingDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\include;$(ProjectDir)..\ar;$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

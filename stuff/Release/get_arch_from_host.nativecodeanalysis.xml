@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DEFECTS>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\program files (x86)\windows kits\10\include\10.0.14393.0\ucrt\</FILEPATH>
+      <FILENAME>corecrt_wstring.h</FILENAME>
+      <LINE>245</LINE>
+      <COLUMN>21</COLUMN>
+    </SFA>
+    <DEFECTCODE>28727</DEFECTCODE>
+    <DESCRIPTION>Banned API Usage:  wcstok is a Banned API as listed in dontuse.h for security purposes.</DESCRIPTION>
+    <FUNCTION>_wcstok</FUNCTION>
+    <DECORATED>_wcstok</DECORATED>
+    <FUNCLINE>240</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\user\downloads\macsources101106\cctools-886\libstuff\</FILEPATH>
+      <FILENAME>get_arch_from_host.c</FILENAME>
+      <LINE>265</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>6340</DEFECTCODE>
+    <DESCRIPTION>Mismatch on sign: 'int' passed as _Param_(4) when some unsigned type is required in call to 'sprintf_s'.</DESCRIPTION>
+    <FUNCTION>get_arch_from_host</FUNCTION>
+    <DECORATED>get_arch_from_host@8</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\user\downloads\macsources101106\cctools-886\libstuff\</FILEPATH>
+      <FILENAME>get_arch_from_host.c</FILENAME>
+      <LINE>338</LINE>
+      <COLUMN>21</COLUMN>
+    </SFA>
+    <DEFECTCODE>6340</DEFECTCODE>
+    <DESCRIPTION>Mismatch on sign: 'int' passed as _Param_(4) when some unsigned type is required in call to 'sprintf_s'.</DESCRIPTION>
+    <FUNCTION>get_arch_from_host</FUNCTION>
+    <DECORATED>get_arch_from_host@8</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\user\downloads\macsources101106\cctools-886\libstuff\</FILEPATH>
+      <FILENAME>get_arch_from_host.c</FILENAME>
+      <LINE>481</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>6340</DEFECTCODE>
+    <DESCRIPTION>Mismatch on sign: 'int' passed as _Param_(4) when some unsigned type is required in call to 'sprintf_s'.</DESCRIPTION>
+    <FUNCTION>get_arch_from_host</FUNCTION>
+    <DECORATED>get_arch_from_host@8</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+  <DEFECT>
+    <SFA>
+      <FILEPATH>c:\users\user\downloads\macsources101106\cctools-886\libstuff\</FILEPATH>
+      <FILENAME>get_arch_from_host.c</FILENAME>
+      <LINE>481</LINE>
+      <COLUMN>25</COLUMN>
+    </SFA>
+    <DEFECTCODE>6340</DEFECTCODE>
+    <DESCRIPTION>Mismatch on sign: 'int' passed as _Param_(5) when some unsigned type is required in call to 'sprintf_s'.</DESCRIPTION>
+    <FUNCTION>get_arch_from_host</FUNCTION>
+    <DECORATED>get_arch_from_host@8</DECORATED>
+    <FUNCLINE>44</FUNCLINE>
+    <PATH></PATH>
+  </DEFECT>
+</DEFECTS>

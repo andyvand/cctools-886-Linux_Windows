@@ -1,0 +1,9 @@
+﻿  Building 'stuff' with toolset 'WindowsApplicationForDrivers10.0' and the 'Desktop' target platform.
+  arch_usage.c
+  breakout.c
+  lto.c
+  ofile.c
+  ofile_error.c
+  ofile_get_word.c
+  writeout.c
+  stuff.vcxproj -> C:\Users\User\Downloads\MacSources101106\cctools-886\cctools\Release\stuff.lib

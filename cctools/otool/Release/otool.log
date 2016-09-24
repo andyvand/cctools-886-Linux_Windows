@@ -1,0 +1,256 @@
+﻿  Building 'otool' with toolset 'WindowsApplicationForDrivers10.0' and the 'Desktop' target platform.
+  i386_disasm.c
+  i860_disasm.c
+..\..\otool\i386_disasm.c(1975): error C2220: warning treated as error - no 'object' file generated
+..\..\otool\i386_disasm.c(1975): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(1975): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2166): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2166): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2189): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2189): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2204): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2204): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2208): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2208): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2236): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2236): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2266): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2266): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2289): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2289): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2298): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2298): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2307): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2307): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2317): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2317): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2369): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2369): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2380): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2380): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2412): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2412): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2434): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2434): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2456): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2456): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2827): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2827): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2845): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2845): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2861): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2861): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2879): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2879): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2904): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2904): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2931): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(2938): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2938): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2953): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2953): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2977): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2977): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3144): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3144): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3164): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3164): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3177): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3177): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3190): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3190): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3192): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3192): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3209): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3209): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3219): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3219): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3222): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3222): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3237): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3237): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3239): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3239): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3251): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3251): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3264): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3264): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3276): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(3286): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(3288): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(3290): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(3295): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3295): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3308): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(3318): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(3320): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(3322): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(3327): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3327): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3342): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3342): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3357): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3357): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3368): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3368): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3381): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3381): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3383): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3383): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3395): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3395): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3397): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3397): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3407): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3407): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3475): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3475): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3489): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3489): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3596): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3596): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3612): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3612): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3621): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3621): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3685): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3685): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3698): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3698): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3711): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3711): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3713): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3713): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3750): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3750): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3758): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3758): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3765): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3765): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3767): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3767): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3776): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3776): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3784): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3784): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3792): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3792): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3808): warning C4242: 'function': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(3808): warning C4242: 'function': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+..\..\otool\i386_disasm.c(2332): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2372): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2383): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2395): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2405): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2427): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2431): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2450): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2454): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2473): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2574): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2591): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2598): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2615): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2633): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2718): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2739): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+  ofile_print.c
+..\..\otool\i386_disasm.c(2746): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2761): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2778): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2808): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(2844): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3114): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3436): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3438): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3446): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3448): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3450): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3731): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3735): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(3737): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4067): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(4070): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(4016): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4027): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4031): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4049): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4054): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4062): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4064): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4082): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4094): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4096): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4100): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4103): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4337): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(4342): error C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  C:\Program Files (x86)\Windows Kits\10\Include\10.0.14393.0\ucrt\stdio.h(1769): note: see declaration of 'sprintf'
+..\..\otool\i386_disasm.c(5223): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5224): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5225): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5226): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5227): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5234): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5235): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5236): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5249): error C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5250): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+..\..\otool\i386_disasm.c(5251): error C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  print_bitcode.c
+..\..\otool\print_bitcode.c(57): fatal error C1083: Cannot open include file: 'objc/objc-runtime.h': No such file or directory
+  print_objc.c
+..\..\otool\ofile_print.c(1440): error C2220: warning treated as error - no 'object' file generated
+..\..\otool\ofile_print.c(1440): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\ofile_print.c(7644): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\ofile_print.c(8404): warning C4242: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\ofile_print.c(8489): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\ofile_print.c(8761): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\ofile_print.c(8796): warning C4244: '=': conversion from 'uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\ofile_print.c(8954): warning C4244: '=': conversion from 'const uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\ofile_print.c(8994): warning C4244: '=': conversion from 'const uint64_t' to 'uint32_t', possible loss of data
+..\..\otool\print_objc.c(37): fatal error C1083: Cannot open include file: 'objc/objc-runtime.h': No such file or directory
