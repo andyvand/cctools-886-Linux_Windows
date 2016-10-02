@@ -5,7 +5,13 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/mman.h>
+
+#if defined(__linux__)
+#include <linux/xattr.h>
+#else
 #include <sys/attr.h>
+#endif
+
 #include <errno.h>
 
 kern_return_t map_fd(int fd,

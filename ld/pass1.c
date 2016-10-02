@@ -336,6 +336,531 @@ static char *mkstr(
 
 #if !defined(SA_RLD) && !(defined(KLD) && defined(__STATIC__))
 /*
+ * check_size_offset_sect() is used by check_cur_obj() to check a pair of sizes,
+ * and offsets from a section in the object file to see it they are aligned
+ * correctly and containded with in the file.
+ */
+static
+void
+check_size_offset_sect(
+unsigned long size,
+unsigned long offset,
+unsigned long align,
+char *size_str,
+char *offset_str,
+unsigned long cmd,
+unsigned long sect,
+char *segname,
+char *sectname)
+{
+	if(size != 0){
+	    if(offset % align != 0){
+#ifdef mc68000
+		/*
+		 * For the mc68000 the alignment is only a warning because it
+		 * can deal with all accesses on bad alignment.
+		 */
+		warning_with_cur_obj("%s of section %lu (%.16s,%.16s) in load "
+		    "command %lu not aligned on %lu byte boundary", offset_str,
+		    sect, segname, sectname, cmd, align);
+#else /* !defined(mc68000) */
+		error_with_cur_obj("%s of section %lu (%.16s,%.16s) in load "
+		    "command %lu not aligned on %lu byte boundary", offset_str,
+		    sect, segname, sectname, cmd, align);
+#endif /* mc68000 */
+		return;
+	    }
+	    if(offset > cur_obj->obj_size){
+		error_with_cur_obj("%s of section %lu (%.16s,%.16s) in load "
+		    "command %lu extends past the end of the file", offset_str,
+		    sect, segname, sectname, cmd);
+		return;
+	    }
+	    if(offset + size > cur_obj->obj_size){
+		error_with_cur_obj("%s plus %s of section %lu (%.16s,%.16s) "
+		    "in load command %lu extends past the end of the file",
+		    offset_str, size_str, sect, segname, sectname, cmd);
+		return;
+	    }
+	}
+}
+
+#ifndef RLD
+/*
+ * collect_base_obj_segments() collects the segments from the base file on a
+ * merged segment list used for overlap checking in
+ * check_for_overlapping_segments().
+ */
+static
+void
+collect_base_obj_segments(void)
+{
+    unsigned long i;
+    struct mach_header *mh;
+    struct load_command *lc, *load_commands;
+    struct segment_command *sg;
+
+	mh = (struct mach_header *)base_obj->obj_addr;
+	load_commands = (struct load_command *)((char *)base_obj->obj_addr +
+			    sizeof(struct mach_header));
+	lc = load_commands;
+	for(i = 0; i < mh->ncmds; i++){
+	    switch(lc->cmd){
+	    case LC_SEGMENT:
+		sg = (struct segment_command *)lc;
+		add_base_obj_segment(sg, base_obj->file_name);
+		break;
+
+	    default:
+		break;
+	    }
+	    lc = (struct load_command *)((char *)lc + lc->cmdsize);
+	}
+}
+
+/*
+ * add_base_obj_segment() adds the specified segment to the list of
+ * base_obj_segments as comming from the specified base filename.
+ */
+static
+void
+add_base_obj_segment(
+struct segment_command *sg,
+char *filename)
+{
+    struct merged_segment **p, *msg;
+
+	p = &base_obj_segments;
+	while(*p){
+	    msg = *p;
+	    p = &(msg->next);
+	}
+	*p = allocate(sizeof(struct merged_segment));
+	msg = *p;
+	memset(msg, '\0', sizeof(struct merged_segment));
+	msg->sg = *sg;
+	msg->filename = filename;
+}
+
+#ifndef KLD
+/*
+ * symbol_address_compare takes two pointers to pointers to symbol entries,
+ * and returns an ordering on them by address.  It also looks for STABS
+ * symbols and if found sets *(int *)fail_p.
+ */
+static int
+symbol_address_compare (void *fail_p, const void *a_p, const void *b_p)
+{
+  const struct nlist * const * aa = a_p;
+  const struct nlist * a = *aa;
+  const struct nlist * const * bb = b_p;
+  const struct nlist * b = *bb;
+
+  if (a->n_type & N_STAB)
+    *(int *)fail_p = 1;
+  if ((a->n_type & N_TYPE) != (b->n_type & N_TYPE))
+    return (a->n_type & N_TYPE) < (b->n_type & N_TYPE) ? -1 : 1;
+  if (a->n_value != b->n_value)
+    {
+      /* This is before the symbols are swapped, so this routine must
+	 swap what it needs.  */
+      if (cur_obj->swapped)
+	return SWAP_LONG (a->n_value) < SWAP_LONG (b->n_value) ? -1 : 1;
+      else
+	return a->n_value < b->n_value ? -1 : 1;
+    }
+
+  else
+    return 0;
+}
+
+/*
+ * read_dwarf_info looks for DWARF sections in cur_obj and if found,
+ * fills in the dwarf_name and dwarf_comp_dir fields in cur_obj.
+ *
+ * Once this routine has completed, no section marked with
+ * S_ATTR_DEBUG will be needed in the link, and so if the object file
+ * layout is appropriate those sections can be unmapped.
+ */
+void
+read_dwarf_info(void)
+{
+  enum { chunksize = 256 };
+
+  struct ld_chunk {
+    struct ld_chunk * next;
+    size_t filedata[chunksize];
+  };
+
+  int little_endian;
+  struct section * debug_info = NULL;
+  struct section * debug_line = NULL;
+  struct section * debug_abbrev = NULL;
+
+  const char * name;
+  const char * comp_dir;
+  uint64_t stmt_list;
+  int has_stabs = FALSE;
+
+  struct line_reader_data * lrd;
+  /* 'st' is the symbol table, 'sst' is pointers into that table
+     sorted by the symbol's address.  */
+  struct nlist *st;
+  struct nlist **sst;
+
+  struct ld_chunk * chunks;
+  struct ld_chunk * lastchunk;
+  size_t * symdata;
+  size_t lastused;
+  size_t num_line_syms = 0;
+  size_t dwarf_source_i;
+  size_t max_files = 0;
+
+  struct line_info li_start, li_end;
+
+  size_t i;
+
+#ifdef __LITTLE_ENDIAN__
+  little_endian = !cur_obj->swapped;
+#else
+  little_endian = cur_obj->swapped;
+#endif
+
+  /* Find the sections containing the DWARF information we need.  */
+  for (i = 0; i < cur_obj->nsection_maps; i++)
+    {
+      struct section * s = cur_obj->section_maps[i].s;
+
+      if (strncmp (s->segname, "__DWARF", 16) != 0)
+	continue;
+      if (strncmp (s->sectname, "__debug_info", 16) == 0)
+	debug_info = s;
+      else if (strncmp (s->sectname, "__debug_line", 16) == 0)
+	debug_line = s;
+      else if (strncmp (s->sectname, "__debug_abbrev", 16) == 0)
+	debug_abbrev = s;
+    }
+
+  /* No DWARF means nothing to do.
+     However, no line table may just mean that there's no code in this
+     file, in which case processing continues.  */
+  if (! debug_info || ! debug_abbrev || ! cur_obj->symtab
+      || debug_info->size == 0)
+    return;
+
+  /* Read the debug_info (and debug_abbrev) sections, and determine
+     the name and working directory to put in the SO stabs, and also
+     the offset into the line number section.  */
+  if (read_comp_unit ((const uint8_t *) cur_obj->obj_addr + debug_info->offset,
+		      debug_info->size,
+		      ((const uint8_t *)cur_obj->obj_addr
+		       + debug_abbrev->offset),
+		      debug_abbrev->size, little_endian,
+		      &name, &comp_dir, &stmt_list)
+      && name) {
+    cur_obj->dwarf_name = strdup (name);
+    if (comp_dir)
+      cur_obj->dwarf_comp_dir = strdup (comp_dir);
+    else
+      cur_obj->dwarf_comp_dir = NULL;
+  } else {
+    warning_with_cur_obj("could not understand DWARF debug information");
+    return;
+  }
+
+  /* If there is no line table, don't do any more processing.  No N_FUN
+     or N_SOL stabs will be output.  */
+  if (! debug_line || stmt_list == (uint64_t) -1)
+    return;
+
+  /* At this point check_symbol has not been called, so all the code below
+     that processes symbols must not assume that the symbol's contents
+     make any sense.  */
+
+  /* Generate the line number information into
+     cur_obj->dwarf_source_data.  The format of dwarf_source_data is a
+     sequence of size_t-sized words made up of subsequences.  Each
+     subsequence describes the source files which the debug_line information
+     says contributed to the code of the entity starting at a particular
+     symbol.
+
+     The subsequences are sorted by the index of the symbol to which they
+     refer.  The format of a subsequence is a word containing the index
+     of the symbol, a word giving the end of the entity starting with
+     that symbol, and then one or more words which are file numbers
+     with their high bit set.
+
+     A file number is simply an index into cur_obj->dwarf_paths; each
+     dwarf_paths entry is either NULL (if not used) or the path of the
+     source file.  */
+
+  st = (struct nlist *)(cur_obj->obj_addr + cur_obj->symtab->symoff);
+  /* The processing is easier if we have a list of symbols sorted by
+     address.  */
+  sst = allocate (sizeof (struct nlist *) * cur_obj->symtab->nsyms);
+  for (i = 0; i < cur_obj->symtab->nsyms; i++)
+    sst[i] = st + i;
+  qsort_r (sst, cur_obj->symtab->nsyms, sizeof (struct nlist *), &has_stabs,
+	   symbol_address_compare);
+  if (has_stabs) {
+    error_with_cur_obj("has both STABS and DWARF debugging info");
+    free (sst);
+    return;
+  }
+
+  if (stmt_list >= debug_line->size){
+    warning_with_cur_obj("offset in DWARF debug_info for line number data is too large");
+    free (sst);
+    return;
+  }
+
+  lrd = line_open ((const uint8_t *) cur_obj->obj_addr + debug_line->offset
+		   + stmt_list,
+		   debug_line->size - stmt_list, little_endian);
+  if (! lrd) {
+    warning_with_cur_obj("could not understand DWARF line number information");
+    free (sst);
+    return;
+  }
+
+  /* In this first pass, we process the symbols in address order and
+     put them into a linked list of chunks to avoid having to call
+     reallocate().  */
+  chunks = allocate (sizeof (*chunks));
+  chunks->next = NULL;
+  lastchunk = chunks;
+  lastused = 0;
+  /* There's also an index by symbol number so we can easily sort them
+     later.  */
+  symdata = allocate (sizeof (size_t) * cur_obj->symtab->nsyms);
+  memset (symdata, 0, sizeof (size_t) * cur_obj->symtab->nsyms);
+
+  li_start.end_of_sequence = TRUE;
+  for (i = 0; i < cur_obj->symtab->nsyms; i++){
+    struct nlist * s = sst[i];
+    size_t idx = s - st;
+    struct ld_chunk * symchunk;
+    size_t n_value = s->n_value;
+
+    size_t limit, max_limit;
+
+    if ((s->n_type & N_TYPE) != N_SECT
+	|| s->n_sect == NO_SECT)
+      continue;
+    /* Looking for line number information that isn't there is
+       expensive, so we only look for line numbers for symbols in
+       sections that might contain instructions.  */
+    if (! (cur_obj->section_maps[s->n_sect - 1].s->flags
+	   & (S_ATTR_SOME_INSTRUCTIONS | S_ATTR_PURE_INSTRUCTIONS)))
+      continue;
+
+    if (i + 1 < cur_obj->symtab->nsyms
+	&& (sst[i + 1]->n_type & N_TYPE) == N_SECT)
+      limit = sst[i + 1]->n_value;
+    else
+      limit = (uint32_t) -1;
+
+    if (cur_obj->swapped){
+      n_value = SWAP_LONG (n_value);
+      limit = SWAP_LONG (limit);
+    }
+
+    if (li_start.pc > n_value || li_end.pc <= n_value
+	|| li_start.end_of_sequence)
+      {
+	if (! line_find_addr (lrd, &li_start, &li_end, n_value)) {
+	  if (li_start.end_of_sequence)
+	    continue;
+	  else
+	    goto line_err;
+	}
+
+	/* Make the start...end range as large as possible.  */
+	if (li_start.file == li_end.file && ! li_end.end_of_sequence)
+	  if (! line_next (lrd, &li_end, line_stop_file))
+	    goto line_err;
+      }
+
+    symdata[idx] = lastused + 1;
+
+    symchunk = lastchunk;
+    num_line_syms++;
+
+    max_limit = 0;
+    for (;;)
+      {
+	size_t j;
+	struct ld_chunk * curchunk = symchunk;
+
+	/* File numbers this large are probably an error, and if not
+	   they're certainly too large for this linker to handle.  */
+	if (li_start.file >= 0x10000000)
+	  goto line_err;
+
+	if (li_end.pc > max_limit)
+	  max_limit = li_end.pc;
+
+	for (j = symdata[idx]; j < lastused; j++)
+	  {
+	    if (j % chunksize == 0)
+	      curchunk = curchunk->next;
+	    if (curchunk->filedata[j % chunksize] == li_start.file)
+	      goto skipfile;
+	  }
+	lastchunk->filedata[lastused % chunksize] = li_start.file;
+	lastused++;
+	if (li_start.file >= max_files)
+	  max_files = li_start.file + 1;
+	if (lastused % chunksize == 0)
+	  {
+	    lastchunk->next = allocate (sizeof (*chunks));
+	    lastchunk = lastchunk->next;
+	    lastchunk->next = NULL;
+	  }
+
+      skipfile:
+	if (li_end.pc >= limit || li_end.end_of_sequence)
+	  break;
+	li_start = li_end;
+	if (! line_next (lrd, &li_end, line_stop_file))
+	  goto line_err;
+      }
+
+    /* The function ends at either the next symbol, or after the last
+       byte which has a line number.  */
+    if (limit > max_limit)
+      limit = max_limit;
+
+    lastchunk->filedata[lastused % chunksize] = (size_t) -1;
+    lastused++;
+    if (lastused % chunksize == 0)
+      {
+	lastchunk->next = allocate (sizeof (*chunks));
+	lastchunk = lastchunk->next;
+	lastchunk->next = NULL;
+      }
+    lastchunk->filedata[lastused % chunksize] = limit - n_value;
+    lastused++;
+    if (lastused % chunksize == 0)
+      {
+	lastchunk->next = allocate (sizeof (*chunks));
+	lastchunk = lastchunk->next;
+	lastchunk->next = NULL;
+      }
+  }
+
+  free (sst);
+
+  /* Now take the data in the chunks out ordered by symbol index, so
+     the final result can be iterated through easily.  */
+
+  cur_obj->dwarf_paths = allocate (max_files * sizeof (const char *));
+  memset (cur_obj->dwarf_paths, 0, max_files * sizeof (const char *));
+  cur_obj->dwarf_num_paths = max_files;
+
+  cur_obj->dwarf_source_data = allocate ((lastused + num_line_syms*2 + 1)
+					 * sizeof (size_t));
+  dwarf_source_i = 0;
+  for (i = 0; i < cur_obj->symtab->nsyms; i++)
+    if (symdata[i]) {
+      struct ld_chunk * symchunk = chunks;
+      size_t j;
+      size_t * limit_space;
+
+      cur_obj->dwarf_source_data[dwarf_source_i++] = i;
+      limit_space = cur_obj->dwarf_source_data + dwarf_source_i++;
+      for (j = 0; j < (symdata[i] - 1) / chunksize; j++)
+	symchunk = symchunk->next;
+      for (j = symdata[i] - 1;
+	   symchunk->filedata[j % chunksize] != (size_t) -1;
+	   j++) {
+	size_t filenum = symchunk->filedata[j % chunksize];
+	cur_obj->dwarf_source_data[dwarf_source_i++] = filenum | 0x80000000;
+	if (! cur_obj->dwarf_paths[filenum])
+	  cur_obj->dwarf_paths[filenum] = line_file (lrd, filenum);
+	if (j % chunksize == chunksize - 1)
+	  symchunk = symchunk->next;
+      }
+      j++;
+      if (j % chunksize == 0)
+	symchunk = symchunk->next;
+      *limit_space = symchunk->filedata[j % chunksize];
+    }
+  /* Terminate with 0x7fffffff, which is larger than any valid symbol
+     index.  */
+  cur_obj->dwarf_source_data[dwarf_source_i++] = 0x7fffffff;
+
+  /* Finish up by freeing everything.  */
+  line_free (lrd);
+  free (symdata);
+  lastchunk = chunks;
+  while (lastchunk) {
+    struct ld_chunk * tmp = lastchunk->next;
+    free (lastchunk);
+    lastchunk = tmp;
+  };
+
+  return;
+
+ line_err:
+  line_free (lrd);
+  free (sst);
+  free (symdata);
+  lastchunk = chunks;
+  while (lastchunk) {
+    struct ld_chunk * tmp = lastchunk->next;
+    free (lastchunk);
+    lastchunk = tmp;
+  };
+
+  warning_with_cur_obj("invalid DWARF line number information");
+  return;
+}
+#endif
+
+/*
+ * Mkstr() creates a string that is the concatenation of a variable number of
+ * strings.  It is pass a variable number of pointers to strings and the last
+ * pointer is NULL.  It returns the pointer to the string it created.  The
+ * storage for the string is malloc()'ed can be free()'ed when nolonger needed.
+ */
+static
+char *
+mkstr(
+const char *args,
+...)
+{
+    va_list ap;
+    char *s, *p;
+    unsigned long size;
+
+	size = 0;
+	if(args != NULL){
+	    size += strlen(args);
+	    va_start(ap, args);
+	    p = (char *)va_arg(ap, char *);
+	    while(p != NULL){
+		size += strlen(p);
+		p = (char *)va_arg(ap, char *);
+	    }
+	}
+	s = allocate(size + 1);
+	*s = '\0';
+
+	if(args != NULL){
+	    (void)strcat(s, args);
+	    va_start(ap, args);
+	    p = (char *)va_arg(ap, char *);
+	    while(p != NULL){
+		(void)strcat(s, p);
+		p = (char *)va_arg(ap, char *);
+	    }
+	    va_end(ap);
+	}
+	return(s);
+}
+
+/*
  * pass1() is called from main() and is passed the name of a file and a flag
  * indicating if it is a path searched abbrevated file name (a -lx argument).
  *
@@ -5921,7 +6446,6 @@ unsigned long cmd)
 		return;
 	    }
 #else
-	    if(offset % align != 0){
 		align = 1;
 	    }
 #endif
@@ -5938,530 +6462,5 @@ unsigned long cmd)
 		return;
 	    }
 	}
-}
-
-/*
- * check_size_offset_sect() is used by check_cur_obj() to check a pair of sizes,
- * and offsets from a section in the object file to see it they are aligned
- * correctly and containded with in the file.
- */
-static
-void
-check_size_offset_sect(
-unsigned long size,
-unsigned long offset,
-unsigned long align,
-char *size_str,
-char *offset_str,
-unsigned long cmd,
-unsigned long sect,
-char *segname,
-char *sectname)
-{
-	if(size != 0){
-	    if(offset % align != 0){
-#ifdef mc68000
-		/*
-		 * For the mc68000 the alignment is only a warning because it
-		 * can deal with all accesses on bad alignment.
-		 */
-		warning_with_cur_obj("%s of section %lu (%.16s,%.16s) in load "
-		    "command %lu not aligned on %lu byte boundary", offset_str,
-		    sect, segname, sectname, cmd, align);
-#else /* !defined(mc68000) */
-		error_with_cur_obj("%s of section %lu (%.16s,%.16s) in load "
-		    "command %lu not aligned on %lu byte boundary", offset_str,
-		    sect, segname, sectname, cmd, align);
-#endif /* mc68000 */
-		return;
-	    }
-	    if(offset > cur_obj->obj_size){
-		error_with_cur_obj("%s of section %lu (%.16s,%.16s) in load "
-		    "command %lu extends past the end of the file", offset_str,
-		    sect, segname, sectname, cmd);
-		return;
-	    }
-	    if(offset + size > cur_obj->obj_size){
-		error_with_cur_obj("%s plus %s of section %lu (%.16s,%.16s) "
-		    "in load command %lu extends past the end of the file",
-		    offset_str, size_str, sect, segname, sectname, cmd);
-		return;
-	    }
-	}
-}
-
-#ifndef RLD
-/*
- * collect_base_obj_segments() collects the segments from the base file on a
- * merged segment list used for overlap checking in
- * check_for_overlapping_segments().
- */
-static
-void
-collect_base_obj_segments(void)
-{
-    unsigned long i;
-    struct mach_header *mh;
-    struct load_command *lc, *load_commands;
-    struct segment_command *sg;
-
-	mh = (struct mach_header *)base_obj->obj_addr;
-	load_commands = (struct load_command *)((char *)base_obj->obj_addr +
-			    sizeof(struct mach_header));
-	lc = load_commands;
-	for(i = 0; i < mh->ncmds; i++){
-	    switch(lc->cmd){
-	    case LC_SEGMENT:
-		sg = (struct segment_command *)lc;
-		add_base_obj_segment(sg, base_obj->file_name);
-		break;
-
-	    default:
-		break;
-	    }
-	    lc = (struct load_command *)((char *)lc + lc->cmdsize);
-	}
-}
-
-/*
- * add_base_obj_segment() adds the specified segment to the list of
- * base_obj_segments as comming from the specified base filename.
- */
-static
-void
-add_base_obj_segment(
-struct segment_command *sg,
-char *filename)
-{
-    struct merged_segment **p, *msg;
-
-	p = &base_obj_segments;
-	while(*p){
-	    msg = *p;
-	    p = &(msg->next);
-	}
-	*p = allocate(sizeof(struct merged_segment));
-	msg = *p;
-	memset(msg, '\0', sizeof(struct merged_segment));
-	msg->sg = *sg;
-	msg->filename = filename;
-}
-
-#ifndef KLD
-/*
- * symbol_address_compare takes two pointers to pointers to symbol entries,
- * and returns an ordering on them by address.  It also looks for STABS
- * symbols and if found sets *(int *)fail_p.
- */
-static int
-symbol_address_compare (void *fail_p, const void *a_p, const void *b_p)
-{
-  const struct nlist * const * aa = a_p;
-  const struct nlist * a = *aa;
-  const struct nlist * const * bb = b_p;
-  const struct nlist * b = *bb;
-
-  if (a->n_type & N_STAB)
-    *(int *)fail_p = 1;
-  if ((a->n_type & N_TYPE) != (b->n_type & N_TYPE))
-    return (a->n_type & N_TYPE) < (b->n_type & N_TYPE) ? -1 : 1;
-  if (a->n_value != b->n_value)
-    {
-      /* This is before the symbols are swapped, so this routine must
-	 swap what it needs.  */
-      if (cur_obj->swapped)
-	return SWAP_LONG (a->n_value) < SWAP_LONG (b->n_value) ? -1 : 1;
-      else
-	return a->n_value < b->n_value ? -1 : 1;
-    }
-
-  else
-    return 0;
-}
-
-/*
- * read_dwarf_info looks for DWARF sections in cur_obj and if found,
- * fills in the dwarf_name and dwarf_comp_dir fields in cur_obj.
- *
- * Once this routine has completed, no section marked with
- * S_ATTR_DEBUG will be needed in the link, and so if the object file
- * layout is appropriate those sections can be unmapped.
- */
-void
-read_dwarf_info(void)
-{
-  enum { chunksize = 256 };
-
-  struct ld_chunk {
-    struct ld_chunk * next;
-    size_t filedata[chunksize];
-  };
-
-  int little_endian;
-  struct section * debug_info = NULL;
-  struct section * debug_line = NULL;
-  struct section * debug_abbrev = NULL;
-
-  const char * name;
-  const char * comp_dir;
-  uint64_t stmt_list;
-  int has_stabs = FALSE;
-
-  struct line_reader_data * lrd;
-  /* 'st' is the symbol table, 'sst' is pointers into that table
-     sorted by the symbol's address.  */
-  struct nlist *st;
-  struct nlist **sst;
-
-  struct ld_chunk * chunks;
-  struct ld_chunk * lastchunk;
-  size_t * symdata;
-  size_t lastused;
-  size_t num_line_syms = 0;
-  size_t dwarf_source_i;
-  size_t max_files = 0;
-
-  struct line_info li_start, li_end;
-
-  size_t i;
-
-#ifdef __LITTLE_ENDIAN__
-  little_endian = !cur_obj->swapped;
-#else
-  little_endian = cur_obj->swapped;
-#endif
-
-  /* Find the sections containing the DWARF information we need.  */
-  for (i = 0; i < cur_obj->nsection_maps; i++)
-    {
-      struct section * s = cur_obj->section_maps[i].s;
-
-      if (strncmp (s->segname, "__DWARF", 16) != 0)
-	continue;
-      if (strncmp (s->sectname, "__debug_info", 16) == 0)
-	debug_info = s;
-      else if (strncmp (s->sectname, "__debug_line", 16) == 0)
-	debug_line = s;
-      else if (strncmp (s->sectname, "__debug_abbrev", 16) == 0)
-	debug_abbrev = s;
-    }
-
-  /* No DWARF means nothing to do.
-     However, no line table may just mean that there's no code in this
-     file, in which case processing continues.  */
-  if (! debug_info || ! debug_abbrev || ! cur_obj->symtab
-      || debug_info->size == 0)
-    return;
-
-  /* Read the debug_info (and debug_abbrev) sections, and determine
-     the name and working directory to put in the SO stabs, and also
-     the offset into the line number section.  */
-  if (read_comp_unit ((const uint8_t *) cur_obj->obj_addr + debug_info->offset,
-		      debug_info->size,
-		      ((const uint8_t *)cur_obj->obj_addr
-		       + debug_abbrev->offset),
-		      debug_abbrev->size, little_endian,
-		      &name, &comp_dir, &stmt_list)
-      && name) {
-    cur_obj->dwarf_name = strdup (name);
-    if (comp_dir)
-      cur_obj->dwarf_comp_dir = strdup (comp_dir);
-    else
-      cur_obj->dwarf_comp_dir = NULL;
-  } else {
-    warning_with_cur_obj("could not understand DWARF debug information");
-    return;
-  }
-
-  /* If there is no line table, don't do any more processing.  No N_FUN
-     or N_SOL stabs will be output.  */
-  if (! debug_line || stmt_list == (uint64_t) -1)
-    return;
-
-  /* At this point check_symbol has not been called, so all the code below
-     that processes symbols must not assume that the symbol's contents
-     make any sense.  */
-
-  /* Generate the line number information into
-     cur_obj->dwarf_source_data.  The format of dwarf_source_data is a
-     sequence of size_t-sized words made up of subsequences.  Each
-     subsequence describes the source files which the debug_line information
-     says contributed to the code of the entity starting at a particular
-     symbol.
-
-     The subsequences are sorted by the index of the symbol to which they
-     refer.  The format of a subsequence is a word containing the index
-     of the symbol, a word giving the end of the entity starting with
-     that symbol, and then one or more words which are file numbers
-     with their high bit set.
-
-     A file number is simply an index into cur_obj->dwarf_paths; each
-     dwarf_paths entry is either NULL (if not used) or the path of the
-     source file.  */
-
-  st = (struct nlist *)(cur_obj->obj_addr + cur_obj->symtab->symoff);
-  /* The processing is easier if we have a list of symbols sorted by
-     address.  */
-  sst = allocate (sizeof (struct nlist *) * cur_obj->symtab->nsyms);
-  for (i = 0; i < cur_obj->symtab->nsyms; i++)
-    sst[i] = st + i;
-  qsort_r (sst, cur_obj->symtab->nsyms, sizeof (struct nlist *), &has_stabs,
-	   symbol_address_compare);
-  if (has_stabs) {
-    error_with_cur_obj("has both STABS and DWARF debugging info");
-    free (sst);
-    return;
-  }
-
-  if (stmt_list >= debug_line->size){
-    warning_with_cur_obj("offset in DWARF debug_info for line number data is too large");
-    free (sst);
-    return;
-  }
-
-  lrd = line_open ((const uint8_t *) cur_obj->obj_addr + debug_line->offset
-		   + stmt_list,
-		   debug_line->size - stmt_list, little_endian);
-  if (! lrd) {
-    warning_with_cur_obj("could not understand DWARF line number information");
-    free (sst);
-    return;
-  }
-
-  /* In this first pass, we process the symbols in address order and
-     put them into a linked list of chunks to avoid having to call
-     reallocate().  */
-  chunks = allocate (sizeof (*chunks));
-  chunks->next = NULL;
-  lastchunk = chunks;
-  lastused = 0;
-  /* There's also an index by symbol number so we can easily sort them
-     later.  */
-  symdata = allocate (sizeof (size_t) * cur_obj->symtab->nsyms);
-  memset (symdata, 0, sizeof (size_t) * cur_obj->symtab->nsyms);
-
-  li_start.end_of_sequence = TRUE;
-  for (i = 0; i < cur_obj->symtab->nsyms; i++){
-    struct nlist * s = sst[i];
-    size_t idx = s - st;
-    struct ld_chunk * symchunk;
-    size_t n_value = s->n_value;
-
-    size_t limit, max_limit;
-
-    if ((s->n_type & N_TYPE) != N_SECT
-	|| s->n_sect == NO_SECT)
-      continue;
-    /* Looking for line number information that isn't there is
-       expensive, so we only look for line numbers for symbols in
-       sections that might contain instructions.  */
-    if (! (cur_obj->section_maps[s->n_sect - 1].s->flags
-	   & (S_ATTR_SOME_INSTRUCTIONS | S_ATTR_PURE_INSTRUCTIONS)))
-      continue;
-
-    if (i + 1 < cur_obj->symtab->nsyms
-	&& (sst[i + 1]->n_type & N_TYPE) == N_SECT)
-      limit = sst[i + 1]->n_value;
-    else
-      limit = (uint32_t) -1;
-
-    if (cur_obj->swapped){
-      n_value = SWAP_LONG (n_value);
-      limit = SWAP_LONG (limit);
-    }
-
-    if (li_start.pc > n_value || li_end.pc <= n_value
-	|| li_start.end_of_sequence)
-      {
-	if (! line_find_addr (lrd, &li_start, &li_end, n_value)) {
-	  if (li_start.end_of_sequence)
-	    continue;
-	  else
-	    goto line_err;
-	}
-
-	/* Make the start...end range as large as possible.  */
-	if (li_start.file == li_end.file && ! li_end.end_of_sequence)
-	  if (! line_next (lrd, &li_end, line_stop_file))
-	    goto line_err;
-      }
-
-    symdata[idx] = lastused + 1;
-
-    symchunk = lastchunk;
-    num_line_syms++;
-
-    max_limit = 0;
-    for (;;)
-      {
-	size_t j;
-	struct ld_chunk * curchunk = symchunk;
-
-	/* File numbers this large are probably an error, and if not
-	   they're certainly too large for this linker to handle.  */
-	if (li_start.file >= 0x10000000)
-	  goto line_err;
-
-	if (li_end.pc > max_limit)
-	  max_limit = li_end.pc;
-
-	for (j = symdata[idx]; j < lastused; j++)
-	  {
-	    if (j % chunksize == 0)
-	      curchunk = curchunk->next;
-	    if (curchunk->filedata[j % chunksize] == li_start.file)
-	      goto skipfile;
-	  }
-	lastchunk->filedata[lastused % chunksize] = li_start.file;
-	lastused++;
-	if (li_start.file >= max_files)
-	  max_files = li_start.file + 1;
-	if (lastused % chunksize == 0)
-	  {
-	    lastchunk->next = allocate (sizeof (*chunks));
-	    lastchunk = lastchunk->next;
-	    lastchunk->next = NULL;
-	  }
-
-      skipfile:
-	if (li_end.pc >= limit || li_end.end_of_sequence)
-	  break;
-	li_start = li_end;
-	if (! line_next (lrd, &li_end, line_stop_file))
-	  goto line_err;
-      }
-
-    /* The function ends at either the next symbol, or after the last
-       byte which has a line number.  */
-    if (limit > max_limit)
-      limit = max_limit;
-
-    lastchunk->filedata[lastused % chunksize] = (size_t) -1;
-    lastused++;
-    if (lastused % chunksize == 0)
-      {
-	lastchunk->next = allocate (sizeof (*chunks));
-	lastchunk = lastchunk->next;
-	lastchunk->next = NULL;
-      }
-    lastchunk->filedata[lastused % chunksize] = limit - n_value;
-    lastused++;
-    if (lastused % chunksize == 0)
-      {
-	lastchunk->next = allocate (sizeof (*chunks));
-	lastchunk = lastchunk->next;
-	lastchunk->next = NULL;
-      }
-  }
-
-  free (sst);
-
-  /* Now take the data in the chunks out ordered by symbol index, so
-     the final result can be iterated through easily.  */
-
-  cur_obj->dwarf_paths = allocate (max_files * sizeof (const char *));
-  memset (cur_obj->dwarf_paths, 0, max_files * sizeof (const char *));
-  cur_obj->dwarf_num_paths = max_files;
-
-  cur_obj->dwarf_source_data = allocate ((lastused + num_line_syms*2 + 1)
-					 * sizeof (size_t));
-  dwarf_source_i = 0;
-  for (i = 0; i < cur_obj->symtab->nsyms; i++)
-    if (symdata[i]) {
-      struct ld_chunk * symchunk = chunks;
-      size_t j;
-      size_t * limit_space;
-
-      cur_obj->dwarf_source_data[dwarf_source_i++] = i;
-      limit_space = cur_obj->dwarf_source_data + dwarf_source_i++;
-      for (j = 0; j < (symdata[i] - 1) / chunksize; j++)
-	symchunk = symchunk->next;
-      for (j = symdata[i] - 1;
-	   symchunk->filedata[j % chunksize] != (size_t) -1;
-	   j++) {
-	size_t filenum = symchunk->filedata[j % chunksize];
-	cur_obj->dwarf_source_data[dwarf_source_i++] = filenum | 0x80000000;
-	if (! cur_obj->dwarf_paths[filenum])
-	  cur_obj->dwarf_paths[filenum] = line_file (lrd, filenum);
-	if (j % chunksize == chunksize - 1)
-	  symchunk = symchunk->next;
-      }
-      j++;
-      if (j % chunksize == 0)
-	symchunk = symchunk->next;
-      *limit_space = symchunk->filedata[j % chunksize];
-    }
-  /* Terminate with 0x7fffffff, which is larger than any valid symbol
-     index.  */
-  cur_obj->dwarf_source_data[dwarf_source_i++] = 0x7fffffff;
-
-  /* Finish up by freeing everything.  */
-  line_free (lrd);
-  free (symdata);
-  lastchunk = chunks;
-  while (lastchunk) {
-    struct ld_chunk * tmp = lastchunk->next;
-    free (lastchunk);
-    lastchunk = tmp;
-  };
-
-  return;
-
- line_err:
-  line_free (lrd);
-  free (sst);
-  free (symdata);
-  lastchunk = chunks;
-  while (lastchunk) {
-    struct ld_chunk * tmp = lastchunk->next;
-    free (lastchunk);
-    lastchunk = tmp;
-  };
-
-  warning_with_cur_obj("invalid DWARF line number information");
-  return;
-}
-#endif
-
-/*
- * Mkstr() creates a string that is the concatenation of a variable number of
- * strings.  It is pass a variable number of pointers to strings and the last
- * pointer is NULL.  It returns the pointer to the string it created.  The
- * storage for the string is malloc()'ed can be free()'ed when nolonger needed.
- */
-static
-char *
-mkstr(
-const char *args,
-...)
-{
-    va_list ap;
-    char *s, *p;
-    unsigned long size;
-
-	size = 0;
-	if(args != NULL){
-	    size += strlen(args);
-	    va_start(ap, args);
-	    p = (char *)va_arg(ap, char *);
-	    while(p != NULL){
-		size += strlen(p);
-		p = (char *)va_arg(ap, char *);
-	    }
-	}
-	s = allocate(size + 1);
-	*s = '\0';
-
-	if(args != NULL){
-	    (void)strcat(s, args);
-	    va_start(ap, args);
-	    p = (char *)va_arg(ap, char *);
-	    while(p != NULL){
-		(void)strcat(s, p);
-		p = (char *)va_arg(ap, char *);
-	    }
-	    va_end(ap);
-	}
-	return(s);
 }
 #endif /* !defined(RLD) */

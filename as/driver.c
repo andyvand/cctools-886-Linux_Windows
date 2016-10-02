@@ -333,6 +333,10 @@ char **envp*/)
 	 * the -q flag. But don't use it asked to use the system assembler
 	 * with the -Q flag.
 	 */
+#if defined(__linux__)
+	prefix = "/Developer/usr/bin/";
+#endif
+
 	if((run_clang || qflag) && !Qflag &&
 	   (arch_flag.cputype == CPU_TYPE_X86_64 ||
 	    arch_flag.cputype == CPU_TYPE_I386 ||
